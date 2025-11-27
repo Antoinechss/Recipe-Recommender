@@ -1,0 +1,20 @@
+{
+    "python.linting.enabled": false,
+    "python.analysis.diagnosticMode": "off",
+    "editor.renderValidationDecorations": "off",
+    "python.analysis.autoImportCompletions": false,
+    "python.linting.pylintEnabled": false,
+    "python.linting.flake8Enabled": false,
+    "python.linting.mypyEnabled": false,
+    "python.linting.banditEnabled": false,
+    "python.linting.prospectorEnabled": false,
+    "python.linting.pydocstyleEnabled": false,
+    "python.linting.pycodestyleEnabled": false,
+    "python.analysis.typeCheckingMode": "off",
+    "python.defaultInterpreterPath": "/opt/anaconda3/envs/recipe_scraper/bin/python",
+    "editor.semanticTokenColorCustomizations": {
+        "enabled": false
+    },
+    "problems.decorations.enabled": false,
+    "editor.renderWhitespace": "none"
+}

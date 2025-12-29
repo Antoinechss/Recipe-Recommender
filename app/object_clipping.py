@@ -1,7 +1,6 @@
 import tkinter as tk
 from tkinter import filedialog
 from PIL import Image, ImageTk
-from rembg import remove
 import io
 
 class U2NetMultiApp:
@@ -95,18 +94,15 @@ class U2NetMultiApp:
             y2 = int(max(rect[1], rect[3]) * scale_y)
 
             cropped = self.image.crop((x1, y1, x2, y2))
-
-            buf = io.BytesIO()
-            cropped.save(buf, format="PNG")
-            result_bytes = remove(buf.getvalue())
-            result = Image.open(io.BytesIO(result_bytes)).convert("RGBA")
-
-            full_result.paste(result, (x1, y1), result)
-            print(f"Objet {i} détouré.")
+            
+            # Note: Background removal functionality has been removed
+            # Simply paste the cropped region without background removal
+            full_result.paste(cropped, (x1, y1))
+            print(f"Objet {i} extracted.")
 
         self.result_image = full_result
         self.display_image(full_result)
-        print("Tous les objets ont été détourés.")
+        print("All objects have been extracted.")
 
     def save_result(self):
         if self.result_image is None:

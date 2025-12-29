@@ -18,6 +18,7 @@ import json
 import os
 from datetime import datetime
 import random
+from custom_styling import apply_custom_css
 
 # Import your modules
 from ingredient_selector import IngredientSelector, prepare_for_ml_identification, update_ml_predictions
@@ -37,7 +38,10 @@ def main():
         layout="wide"
     )
     
-    st.title("🍳 Complete Recipe Recommender Workflow")
+    # Apply custom styling
+    apply_custom_css()
+    
+    st.title("Complete Recipe Recommender Workflow")
     st.markdown("*End-to-end demonstration: Photo → Ingredient Selection → ML Analysis → Recipe Recommendation*")
     
     # Initialize session state

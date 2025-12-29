@@ -4,6 +4,7 @@ import io
 import os
 import sys
 from datetime import datetime
+from custom_styling import apply_custom_css
 
 # Add current directory to path for imports
 sys.path.append(os.path.dirname(os.path.abspath(__file__)))
@@ -15,13 +16,6 @@ try:
 except ImportError:
     CLICK_DETECTION_AVAILABLE = False
 
-# Try to import rembg, fallback if not available
-try:
-    from rembg import remove
-    REMBG_AVAILABLE = True
-except ImportError:
-    REMBG_AVAILABLE = False
-
 # Import our ingredient selector
 try:
     from ingredient_selector import IngredientSelector, prepare_for_ml_identification
@@ -32,39 +26,47 @@ except ImportError:
 def main():
     st.set_page_config(
         page_title="Recipe Recommender",
-        page_icon="🍳",
+        page_icon="🥄",
         layout="wide"
     )
     
-    st.title("🍳 Smart Recipe Recommender")
+    # Apply custom styling
+    apply_custom_css()
+    
+    st.title("Smart Recipe Recommender")
     st.markdown("*Take a photo, select ingredients, get recipe recommendations!*")
     
     # Sidebar for navigation
     with st.sidebar:
-        st.header("🎯 Mode Selection")
+        st.header("Mode Selection")
         mode = st.selectbox(
             "Choose your mode:",
-            ["📸 Take Photo", "🥕 Select Ingredients", "🤖 ML Analysis", "📜 Recipe Recommendations"]
+            [
+                "Take Photo", 
+                "Select Ingredients", 
+                "ML Analysis", 
+                "Recipe Recommendations"
+            ]
         )
         
         # Display warnings for missing dependencies
-        if not REMBG_AVAILABLE:
-            st.warning("⚠️ Background removal not available. Install rembg with Python ≤3.12.")
         if not CLICK_DETECTION_AVAILABLE:
-            st.warning("⚠️ Click detection limited. Install streamlit-image-coordinates for full functionality.")
+            st.warning("Click detection limited. "
+                      "Install streamlit-image-coordinates for full functionality.")
     
-    if mode == "📸 Take Photo":
+    if mode == "Take Photo":
         photo_capture_mode()
-    elif mode == "🥕 Select Ingredients":
+    elif mode == "Select Ingredients":
         ingredient_selection_mode()
-    elif mode == "🤖 ML Analysis":
+    elif mode == "ML Analysis":
         ml_analysis_mode()
-    elif mode == "📜 Recipe Recommendations":
+    elif mode == "Recipe Recommendations":
         recipe_recommendation_mode()
+
 
 def photo_capture_mode():
     """Photo capture and basic processing mode."""
-    st.header("📸 Capture Your Ingredients")
+    st.header("Capture Your Ingredients")
     
     col1, col2 = st.columns([2, 1])
     
@@ -80,27 +82,13 @@ def photo_capture_mode():
             st.session_state['image_source'] = 'camera'
             
             st.image(image, caption="Your ingredients photo", width="stretch")
-            
-            # Background removal option
-            if REMBG_AVAILABLE and st.button("🎨 Remove Background"):
-                with st.spinner("Removing background..."):
-                    img_bytes = io.BytesIO()
-                    image.save(img_bytes, format='PNG')
-                    img_bytes.seek(0)
-                    
-                    output = remove(img_bytes.read())
-                    processed_image = Image.open(io.BytesIO(output))
-                    
-                    st.session_state['processed_image'] = processed_image
-                    st.image(processed_image, caption="Background removed", 
-                            width="stretch")
     
     with col2:
-        st.subheader("📋 Next Steps")
+        st.subheader("Next Steps")
         
         if 'current_image' in st.session_state:
-            st.success("✅ Image captured!")
-            st.info("👉 Go to 'Select Ingredients' to mark individual ingredients")
+            st.success("Image captured!")
+            st.info("Go to 'Select Ingredients' to mark individual ingredients")
             
             # Image info
             img = st.session_state['current_image']
@@ -126,12 +114,21 @@ def photo_capture_mode():
 
 def ingredient_selection_mode():
     """Interactive ingredient selection mode."""
-    st.header("🥕 Select Individual Ingredients")
+    st.header("Select Individual Ingredients")
     
-    if 'current_image' not in st.session_state:
-        st.warning("📷 Please take or upload a photo first!")
-        if st.button("👈 Go to Photo Mode"):
-            st.rerun()
+    if 'current_image' not in st.session_state or st.session_state['current_image'] is None:
+        st.warning("Please take or upload a photo first!")
+        st.info("Go to 'Take Photo' mode to capture or upload an image of your ingredients.")
+        
+        # Show a sample or placeholder
+        st.subheader("How it works:")
+        st.markdown("""
+        1. Take or upload a photo of your ingredients
+        2. Click on individual ingredients in the photo
+        3. The system will extract and save each ingredient
+        4. Use ML Analysis to identify the ingredients
+        5. Get recipe recommendations based on your ingredients
+        """)
         return
     
     # Initialize session state
@@ -252,8 +249,7 @@ def extract_ingredients(image, coordinates, selection_size):
                 extracted,
                 session_id,
                 f"ingredient_{i+1}",
-                (x, y),
-                with_background=REMBG_AVAILABLE
+                (x, y)
             )
             
             saved_ingredients.append({
@@ -268,18 +264,28 @@ def extract_ingredients(image, coordinates, selection_size):
 
 def ml_analysis_mode():
     """ML analysis and ingredient identification mode."""
-    st.header("🤖 AI Ingredient Analysis")
+    st.header("AI Ingredient Analysis")
     
-    if 'extracted_ingredients' not in st.session_state:
-        st.warning("🥕 Please extract ingredients first!")
+    if 'extracted_ingredients' not in st.session_state or not st.session_state.get('extracted_ingredients'):
+        st.warning("Please extract ingredients first!")
+        st.info("Go to 'Select Ingredients' mode to mark individual ingredients in your photo.")
+        
+        st.subheader("How AI Analysis Works:")
+        st.markdown("""
+        1. First, capture a photo and select individual ingredients
+        2. The system extracts each ingredient region
+        3. AI models analyze each ingredient image
+        4. Get confidence scores and ingredient names
+        5. Use results for recipe recommendations
+        """)
         return
     
-    st.info("🚧 This section will integrate your ML model for ingredient identification.")
+    st.info("This section will integrate your ML model for ingredient identification.")
     
     # Display extracted ingredients
     ingredients = st.session_state['extracted_ingredients']
     
-    st.subheader(f"📊 Analyzing {len(ingredients)} Ingredients")
+    st.subheader(f"Analyzing {len(ingredients)} Ingredients")
     
     cols = st.columns(min(len(ingredients), 3))
     
@@ -335,23 +341,33 @@ def ml_analysis_mode():
 
 def recipe_recommendation_mode():
     """Recipe recommendation based on identified ingredients."""
-    st.header("📜 Recipe Recommendations")
+    st.header("Recipe Recommendations")
     
-    if 'ml_results' not in st.session_state:
-        st.warning("🤖 Please run ingredient analysis first!")
+    if 'ml_results' not in st.session_state or not st.session_state.get('ml_results'):
+        st.warning("Please run ingredient analysis first!")
+        st.info("Complete the previous steps: Take Photo → Select Ingredients → ML Analysis")
+        
+        st.subheader("Recipe Recommendation Process:")
+        st.markdown("""
+        1. Capture photo of your ingredients
+        2. Select individual ingredients by clicking
+        3. Run AI analysis to identify ingredients
+        4. Get personalized recipe recommendations
+        5. Cook delicious meals!
+        """)
         return
     
     # Get identified ingredients
     identified_ingredients = [result['prediction'] for result in st.session_state['ml_results']]
     
-    st.subheader("🥕 Your Identified Ingredients")
+    st.subheader("Your Identified Ingredients")
     st.write(", ".join(identified_ingredients))
     
     # This is where you'll integrate with your recipe dataset
-    st.info("🚧 This will integrate with your recipe recommendation system.")
+    st.info("This will integrate with your recipe recommendation system.")
     
     # Simulated recipe recommendations
-    st.subheader("👨‍🍳 Recommended Recipes")
+    st.subheader("Recommended Recipes")
     
     # Mock recipes based on ingredients
     mock_recipes = [

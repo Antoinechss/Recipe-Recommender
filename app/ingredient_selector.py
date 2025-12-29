@@ -6,13 +6,8 @@ import os
 import json
 from typing import List, Tuple, Dict, Optional
 from datetime import datetime
+from custom_styling import apply_custom_css
 
-# Try to import rembg for background removal
-try:
-    from rembg import remove
-    REMBG_AVAILABLE = True
-except ImportError:
-    REMBG_AVAILABLE = False
 
 class IngredientSelector:
     """
@@ -73,36 +68,8 @@ class IngredientSelector:
         extracted = image.crop((left, top, right, bottom))
         return extracted
     
-    def remove_background(self, image: Image.Image) -> Optional[Image.Image]:
-        """
-        Remove background from an image using rembg if available.
-        
-        Args:
-            image: Input image
-            
-        Returns:
-            Image with background removed, or None if rembg not available
-        """
-        if not REMBG_AVAILABLE:
-            return None
-        
-        try:
-            # Convert to bytes for rembg processing
-            img_bytes = io.BytesIO()
-            image.save(img_bytes, format='PNG')
-            img_bytes.seek(0)
-            
-            # Remove background
-            output = remove(img_bytes.read())
-            processed_image = Image.open(io.BytesIO(output))
-            return processed_image
-        except Exception as e:
-            st.error(f"Background removal failed: {e}")
-            return None
-    
     def save_ingredient(self, image: Image.Image, session_id: str, 
-                       ingredient_id: str, click_coords: Tuple[int, int],
-                       with_background: bool = True) -> str:
+                       ingredient_id: str, click_coords: Tuple[int, int]) -> str:
         """
         Save an extracted ingredient image.
         
@@ -111,7 +78,6 @@ class IngredientSelector:
             session_id: Unique session identifier
             ingredient_id: Unique ingredient identifier
             click_coords: Original click coordinates
-            with_background: Whether to also save background-removed version
             
         Returns:
             Path to saved image
@@ -123,15 +89,6 @@ class IngredientSelector:
         # Save original extracted image
         image.save(filepath)
         
-        # Save background-removed version if requested and available
-        bg_removed_path = None
-        if with_background and REMBG_AVAILABLE:
-            bg_removed = self.remove_background(image)
-            if bg_removed:
-                bg_filename = f"{session_id}_{ingredient_id}_{timestamp}_nobg.png"
-                bg_removed_path = os.path.join(self.ingredients_dir, bg_filename)
-                bg_removed.save(bg_removed_path)
-        
         # Update metadata
         metadata = self.load_metadata()
         ingredient_data = {
@@ -140,7 +97,6 @@ class IngredientSelector:
             "timestamp": timestamp,
             "click_coordinates": click_coords,
             "image_path": filepath,
-            "background_removed_path": bg_removed_path,
             "ml_prediction": None,  # To be filled by ML script later
             "confidence": None
         }
@@ -210,7 +166,10 @@ def display_ingredient_selector():
     """
     Main function to display the ingredient selection interface in Streamlit.
     """
-    st.header("🥕 Interactive Ingredient Selector")
+    # Apply custom styling
+    apply_custom_css()
+    
+    st.header("Interactive Ingredient Selector")
     
     # Initialize session state
     if 'selector' not in st.session_state:
@@ -234,16 +193,6 @@ def display_ingredient_selector():
             min_value=50, max_value=200, value=100, step=10,
             help="Size of the area to extract around each click"
         )
-        
-        auto_bg_removal = st.checkbox(
-            "Auto Background Removal", 
-            value=REMBG_AVAILABLE,
-            disabled=not REMBG_AVAILABLE,
-            help="Automatically remove background from extracted ingredients"
-        )
-        
-        if not REMBG_AVAILABLE:
-            st.warning("⚠️ Background removal not available. Install rembg for full functionality.")
         
         # Session info
         st.subheader("📊 Session Info")

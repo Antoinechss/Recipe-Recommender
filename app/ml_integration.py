@@ -12,6 +12,7 @@ import torch
 from typing import List, Dict, Tuple, Optional
 import streamlit as st
 import os
+from custom_styling import apply_custom_css
 
 # Mock ML model class - replace with your actual model
 class MockIngredientClassifier:
@@ -349,7 +350,7 @@ def run_full_pipeline_example():
     """
     Example of running the full pipeline from image to recipe recommendation.
     """
-    st.header("🚀 Full Pipeline Example")
+    st.header("Full Pipeline Example")
     
     # This would integrate with your main app workflow
     st.info("This example shows how to integrate ML predictions with recipe recommendation.")
@@ -376,7 +377,10 @@ def run_full_pipeline_example():
 
 if __name__ == "__main__":
     # For standalone testing
-    st.title("🤖 ML Integration Testing")
+    # Apply custom styling
+    apply_custom_css()
+    
+    st.title("ML Integration Testing")
     create_ml_interface()
     st.divider()
     run_full_pipeline_example()

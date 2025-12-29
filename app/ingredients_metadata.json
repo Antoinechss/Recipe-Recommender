@@ -1,0 +1,101 @@
+{
+  "sessions": [
+    {
+      "session_id": "session_20251229_160715",
+      "created_at": "20251229_160730",
+      "ingredients": [
+        {
+          "id": "ingredient_1",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160730",
+          "click_coordinates": [
+            477,
+            305
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_1_20251229_160730.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_1_20251229_160730_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_2",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160732",
+          "click_coordinates": [
+            470,
+            227
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_2_20251229_160732.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_2_20251229_160732_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_3",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160733",
+          "click_coordinates": [
+            448,
+            168
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_3_20251229_160733.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_3_20251229_160733_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_4",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160734",
+          "click_coordinates": [
+            501,
+            255
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_4_20251229_160734.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_4_20251229_160734_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_5",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160735",
+          "click_coordinates": [
+            531,
+            495
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_5_20251229_160735.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_5_20251229_160735_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_6",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160735",
+          "click_coordinates": [
+            383,
+            471
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_6_20251229_160735.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_6_20251229_160735_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_7",
+          "session_id": "session_20251229_160715",
+          "timestamp": "20251229_160736",
+          "click_coordinates": [
+            266,
+            443
+          ],
+          "image_path": "extracted_ingredients/session_20251229_160715_ingredient_7_20251229_160736.png",
+          "background_removed_path": "extracted_ingredients/session_20251229_160715_ingredient_7_20251229_160736_nobg.png",
+          "ml_prediction": null,
+          "confidence": null
+        }
+      ]
+    }
+  ]
+}

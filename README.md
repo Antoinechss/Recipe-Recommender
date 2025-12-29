@@ -6,14 +6,17 @@ A recipe recommender that recognizes available ingredients from pictures and ret
 
 - 📸 Camera input for ingredient detection
 - 🍽️ Recipe recommendations based on detected ingredients
-- 🎯 Background removal for better ingredient recognition
+- 🎯 Background removal for better ingredient recognition (requires Python ≤3.12)
 - 📱 Mobile-friendly web interface
+
+> **Note:** Background removal functionality requires Python 3.11-3.12. With Python 3.14+, the app will work but show a warning about unavailable background removal.
 
 ## Setup
 
 ### Prerequisites
 
-- Python 3.11+
+- Python 3.11-3.12 (recommended for full functionality)
+- Python 3.14+ (basic functionality, background removal unavailable)
 - Virtual environment support
 
 ### Installation
@@ -25,15 +28,26 @@ cd Recipe-Recommender
 ```
 
 2. Create and activate a virtual environment:
+
+**For full functionality (Python 3.12 - recommended):**
 ```bash
-python -m venv .venv
-source .venv/bin/activate  # On macOS/Linux
+python3.12 -m venv .venv-py312
+source .venv-py312/bin/activate  # On macOS/Linux
 # or
-.venv\Scripts\activate     # On Windows
+.venv-py312\Scripts\activate     # On Windows
+
+# Install full dependencies
+pip install -r requirements-full.txt
 ```
 
-3. Install dependencies:
+**For basic functionality (Python 3.14+):**
 ```bash
+python -m venv .venv
+source .venv/bin/activate        # On macOS/Linux
+# or
+.venv\Scripts\activate          # On Windows
+
+# Install basic dependencies
 pip install -r requirements.txt
 ```
 
@@ -41,19 +55,30 @@ pip install -r requirements.txt
 
 You can run the application in several ways:
 
-**Option 1: Using the run script (macOS/Linux)**
+**Option 1: Using the run script (macOS/Linux) - Automatically selects best environment**
 ```bash
+chmod +x run.sh
 ./run.sh
 ```
 
-**Option 2: Direct command**
+**Option 2: Direct command with Python 3.12 (recommended)**
+```bash
+source .venv-py312/bin/activate
+streamlit run app/app.py
+```
+
+**Option 3: Direct command with Python 3.14+ (basic functionality)**
 ```bash
 source .venv/bin/activate
 streamlit run app/app.py
 ```
 
-**Option 3: Using Python directly**
+**Option 4: Using Python directly**
 ```bash
+# With Python 3.12
+.venv-py312/bin/python -m streamlit run app/app.py
+
+# With Python 3.14+
 .venv/bin/python -m streamlit run app/app.py
 ```
 

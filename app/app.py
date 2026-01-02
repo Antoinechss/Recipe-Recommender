@@ -72,12 +72,8 @@ def main():
         if sidebar_mode != st.session_state.selected_mode:
             st.session_state.selected_mode = sidebar_mode
 
-        # Display warnings for missing dependencies
-        if not CLICK_DETECTION_AVAILABLE:
-            st.warning(
-                "Click detection limited. "
-                "Install streamlit-image-coordinates for full functionality."
-            )
+        # Check for missing dependencies silently
+        pass
     
     # Use the selected mode
     mode = st.session_state.selected_mode
@@ -117,7 +113,6 @@ def ingredient_selection_mode():
         "current_image" not in st.session_state
         or st.session_state["current_image"] is None
     ):
-        st.warning("Please take or upload a photo first!")
         return
 
     # Initialize session state
@@ -222,7 +217,6 @@ def ingredient_selection_mode():
 def extract_ingredients(image, coordinates, selection_size):
     """Extract and save ingredients from image."""
     if not INGREDIENT_SELECTOR_AVAILABLE:
-        st.error("Ingredient selector not available!")
         return
 
     selector = IngredientSelector()
@@ -266,21 +260,6 @@ def ml_analysis_mode():
     if "extracted_ingredients" not in st.session_state or not st.session_state.get(
         "extracted_ingredients"
     ):
-        st.warning("Please extract ingredients first!")
-        st.info(
-            "Go to 'Select Ingredients' mode to mark individual ingredients in your photo."
-        )
-
-        st.subheader("How AI Analysis Works:")
-        st.markdown(
-            """
-        1. First, capture a photo and select individual ingredients
-        2. The system extracts each ingredient region
-        3. AI models analyze each ingredient image
-        4. Get confidence scores and ingredient names
-        5. Use results for recipe recommendations
-        """
-        )
         return
 
     st.info("This section will integrate your ML model for ingredient identification.")
@@ -360,21 +339,6 @@ def recipe_recommendation_mode():
     st.header("Recipe Recommendations")
 
     if "ml_results" not in st.session_state or not st.session_state.get("ml_results"):
-        st.warning("Please run ingredient analysis first!")
-        st.info(
-            "Complete the previous steps: Take Photo → Select Ingredients → ML Analysis"
-        )
-
-        st.subheader("Recipe Recommendation Process:")
-        st.markdown(
-            """
-        1. Capture photo of your ingredients
-        2. Select individual ingredients by clicking
-        3. Run AI analysis to identify ingredients
-        4. Get personalized recipe recommendations
-        5. Cook delicious meals!
-        """
-        )
         return
 
     # Get identified ingredients
@@ -384,9 +348,6 @@ def recipe_recommendation_mode():
 
     st.subheader("Your Identified Ingredients")
     st.write(", ".join(identified_ingredients))
-
-    # This is where you'll integrate with your recipe dataset
-    st.info("This will integrate with your recipe recommendation system.")
 
     # Simulated recipe recommendations
     st.subheader("Recommended Recipes")
@@ -422,14 +383,9 @@ def recipe_recommendation_mode():
 
             with col1:
                 st.write(
-                    f"**Using ingredients:** {', '.join(recipe['ingredients_used'])}"
+                    "**Using ingredients:** " +
+                    f"{', '.join(recipe['ingredients_used'])}"
                 )
-                st.write(f"**Prep time:** {recipe['prep_time']}")
-                st.write(f"**Difficulty:** {recipe['difficulty']}")
-
-            with col2:
-                if st.button(f"View Recipe", key=f"view_{recipe['name']}"):
-                    st.info("This will open the full recipe details!")
 
 
 if __name__ == "__main__":

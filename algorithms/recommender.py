@@ -9,12 +9,14 @@ pipeline_path = os.path.join(os.path.dirname(__file__), '..',
                              'ingr_recip_matrx_pipeline')
 sys.path.append(pipeline_path)
 
-matrix_path = ('/Users/antoinechosson/Desktop/TDLOG_project/'
-               'Recipe-Recommender/datasets/recipe_ingredient_matrix_VF.csv')
+# Use relative path for deployment compatibility
+matrix_path = os.path.join(os.path.dirname(__file__), '..', 'datasets',
+                           'recipe_ingredient_matrix_VF.csv')
 matrix = pd.read_csv(matrix_path, index_col=0)
 recipe_names = list(matrix.index)
 
 from ingredient_weights import INGREDIENT_WEIGHTS
+
 
 def compute_recipe_score(ingredients_available, recipe):
     """

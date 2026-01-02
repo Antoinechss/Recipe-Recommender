@@ -96,6 +96,150 @@
           "confidence": null
         }
       ]
+    },
+    {
+      "session_id": "session_20260102_181245",
+      "created_at": "20260102_181249",
+      "ingredients": [
+        {
+          "id": "ingredient_1",
+          "session_id": "session_20260102_181245",
+          "timestamp": "20260102_181249",
+          "click_coordinates": [
+            478,
+            191
+          ],
+          "image_path": "extracted_ingredients/session_20260102_181245_ingredient_1_20260102_181249.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_2",
+          "session_id": "session_20260102_181245",
+          "timestamp": "20260102_181249",
+          "click_coordinates": [
+            363,
+            278
+          ],
+          "image_path": "extracted_ingredients/session_20260102_181245_ingredient_2_20260102_181249.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_3",
+          "session_id": "session_20260102_181245",
+          "timestamp": "20260102_181249",
+          "click_coordinates": [
+            245,
+            110
+          ],
+          "image_path": "extracted_ingredients/session_20260102_181245_ingredient_3_20260102_181249.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_4",
+          "session_id": "session_20260102_181245",
+          "timestamp": "20260102_181249",
+          "click_coordinates": [
+            219,
+            299
+          ],
+          "image_path": "extracted_ingredients/session_20260102_181245_ingredient_4_20260102_181249.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_5",
+          "session_id": "session_20260102_181245",
+          "timestamp": "20260102_181249",
+          "click_coordinates": [
+            283,
+            410
+          ],
+          "image_path": "extracted_ingredients/session_20260102_181245_ingredient_5_20260102_181249.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_6",
+          "session_id": "session_20260102_181245",
+          "timestamp": "20260102_181249",
+          "click_coordinates": [
+            532,
+            439
+          ],
+          "image_path": "extracted_ingredients/session_20260102_181245_ingredient_6_20260102_181249.png",
+          "ml_prediction": null,
+          "confidence": null
+        }
+      ]
+    },
+    {
+      "session_id": "session_20260102_182409",
+      "created_at": "20260102_182411",
+      "ingredients": [
+        {
+          "id": "ingredient_1",
+          "session_id": "session_20260102_182409",
+          "timestamp": "20260102_182411",
+          "click_coordinates": [
+            265,
+            183
+          ],
+          "image_path": "extracted_ingredients/session_20260102_182409_ingredient_1_20260102_182411.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_2",
+          "session_id": "session_20260102_182409",
+          "timestamp": "20260102_182411",
+          "click_coordinates": [
+            417,
+            235
+          ],
+          "image_path": "extracted_ingredients/session_20260102_182409_ingredient_2_20260102_182411.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_3",
+          "session_id": "session_20260102_182409",
+          "timestamp": "20260102_182411",
+          "click_coordinates": [
+            383,
+            355
+          ],
+          "image_path": "extracted_ingredients/session_20260102_182409_ingredient_3_20260102_182411.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_4",
+          "session_id": "session_20260102_182409",
+          "timestamp": "20260102_182411",
+          "click_coordinates": [
+            498,
+            210
+          ],
+          "image_path": "extracted_ingredients/session_20260102_182409_ingredient_4_20260102_182411.png",
+          "ml_prediction": null,
+          "confidence": null
+        },
+        {
+          "id": "ingredient_5",
+          "session_id": "session_20260102_182409",
+          "timestamp": "20260102_182411",
+          "click_coordinates": [
+            546,
+            399
+          ],
+          "image_path": "extracted_ingredients/session_20260102_182409_ingredient_5_20260102_182411.png",
+          "ml_prediction": null,
+          "confidence": null
+        }
+      ]
     }
   ]
 }

@@ -22,7 +22,7 @@ from custom_styling import apply_custom_css
 
 # Import your modules
 from ingredient_selector import IngredientSelector, prepare_for_ml_identification, update_ml_predictions
-from coming_soon.ml_integration import get_classifier, identify_ingredients, ingredients_to_recipe_features
+from ml_integration import get_classifier, identify_ingredients, ingredients_to_recipe_features
 
 # Try to import click detection
 try:

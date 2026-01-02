@@ -150,7 +150,7 @@ ingredients = {
 },
 
 
-"remove": {
-    ["colorant", "bouchées feuilletées", "foie", "fumet"]
-}
+"remove": [
+    "colorant", "bouchées feuilletées", "foie", "fumet"
+]
 }

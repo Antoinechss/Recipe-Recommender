@@ -2,7 +2,8 @@ streamlit>=1.28.0
 Pillow>=10.0.0
 numpy>=1.24.0
 opencv-python>=4.8.0
-# Note: rembg and onnxruntime require Python <=3.12
-# For Python 3.14 compatibility, use alternative background removal
+torch>=2.0.0
+torchvision>=0.15.0
 scikit-image>=0.21.0
 scipy>=1.10.0
+streamlit-image-coordinates>=0.1.6

@@ -19,9 +19,6 @@ def recipe_ingredient_matrix(recipe_dataset_path):
         recipe_ingredients = df.loc[recipe_idx]['ingredients']
         recipe_name = df.loc[recipe_idx]['recipe_title']
 
-        if pd.isna(recipe_ingredients) or recipe_ingredients == '':  # Skip if recipe has no ingredients
-            continue 
-
         try: 
             recipe_ingredients = ast.literal_eval(recipe_ingredients)  # Convert str to list
             recipes.append({'recipe_title': recipe_name, 'ingredients': recipe_ingredients})
@@ -57,8 +54,3 @@ def recipe_ingredient_matrix(recipe_dataset_path):
     print("Matrix saved to recipe_ingredient_matrix.csv")
     
     return matrix_df
-
-if __name__ == "__main__":
-    recipe_dataset_path = '/Users/antoinechosson/Desktop/TDLOG_project/marmiton_recipes.csv'
-    matrix = recipe_ingredient_matrix(recipe_dataset_path)
-    print(f"Matrix shape: {matrix.shape}")
